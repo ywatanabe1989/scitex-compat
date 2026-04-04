@@ -7,18 +7,49 @@ name = "scitex-compat"
 version = "0.1.0"
 description = "Backward compatibility shims and deprecation wrappers"
 readme = "README.md"
-license = "MIT"
-requires-python = ">=3.8"
+license = "AGPL-3.0"
+requires-python = ">=3.10"
 authors = [
-    { name = "Yusuke Watanabe" },
+    { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.entry-points."scitex_dev.docs"]
+scitex-compat = "scitex_compat"
 
 [project.urls]
 Homepage = "https://github.com/ywatanabe1989/scitex-compat"
-Repository = "https://github.com/ywatanabe1989/scitex-compat"
+Repository = "https://github.com/ywatanabe1989/scitex-compat.git"
+Issues = "https://github.com/ywatanabe1989/scitex-compat/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scitex_compat"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
