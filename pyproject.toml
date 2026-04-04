@@ -33,6 +33,9 @@ dev = [
 [project.entry-points."scitex_dev.docs"]
 scitex-compat = "scitex_compat"
 
+[project.entry-points."scitex_dev.skills"]
+scitex-compat = "scitex_compat"
+
 [project.urls]
 Homepage = "https://github.com/ywatanabe1989/scitex-compat"
 Repository = "https://github.com/ywatanabe1989/scitex-compat.git"
