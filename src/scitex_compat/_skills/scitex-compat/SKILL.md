@@ -2,9 +2,12 @@
 name: scitex-compat
 description: Backward-compatibility shims for deprecated SciTeX APIs — holds legacy aliases so old user code keeps working while the ecosystem migrates. Public API (3 symbols) — `@deprecated(reason=..., version=..., replacement=...)` decorator (wraps a function/class to emit `DeprecationWarning` on call with a helpful message pointing at the new location) and legacy notification wrappers `notify(...)` + `notify_async(...)` that forward to the modern `scitex.notify` package. No CLI, no MCP tools, intentionally minimal — new features belong in the proper module, not here. Drop-in replacement for ad-hoc `warnings.warn("X is deprecated, use Y", DeprecationWarning, stacklevel=2)` boilerplate and hand-rolled `def notify(...): from .new_location import notify as _n; return _n(...)` forwarders. Use whenever the user asks to "mark a function as deprecated", "keep an old SciTeX alias working", "forward a legacy call to the new module", "add a DeprecationWarning with replacement info", or mentions `scitex.compat`, `@deprecated`, API migration shim.
 user-invocable: false
+primary_interface: python
 ---
 
 # scitex-compat
+
+> **Primary interface: Python API.** Import in scripts/notebooks — CLI & MCP are thin wrappers over the Python functions.
 
 Thin compatibility layer. Holds deprecated aliases so old user code keeps
 working (with a `DeprecationWarning`) while the ecosystem migrates to new
