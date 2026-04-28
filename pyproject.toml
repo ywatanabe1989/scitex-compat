@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-compat"
-version = "0.1.2"
+version = "0.1.3"
 description = "Backward compatibility shims and deprecation wrappers"
 readme = "README.md"
 license = "AGPL-3.0-only"
