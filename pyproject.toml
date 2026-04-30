@@ -4,10 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scitex-compat"
-version = "0.1.1"
+version = "0.1.4"
 description = "Backward compatibility shims and deprecation wrappers"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "AGPL-3.0-only"
 requires-python = ">=3.10"
 authors = [
     { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
@@ -15,7 +15,6 @@ authors = [
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -60,3 +59,6 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
+
+[tool.scitex-linter]
+library_dirs = ["src", "tests", "examples"]
