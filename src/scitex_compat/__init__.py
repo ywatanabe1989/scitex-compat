@@ -96,6 +96,7 @@ async def notify_async(*args, **kwargs):
 
 
 __all__ = [
+    "__version__",
     "deprecated",
     "notify",
     "notify_async",
