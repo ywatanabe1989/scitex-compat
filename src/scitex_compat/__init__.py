@@ -13,6 +13,16 @@ Deprecation Timeline:
 
 from __future__ import annotations
 
+try:
+    from importlib.metadata import version as _v, PackageNotFoundError
+    try:
+        __version__ = _v("scitex-compat")
+    except PackageNotFoundError:
+        __version__ = "0.0.0+local"
+    del _v, PackageNotFoundError
+except ImportError:  # pragma: no cover — only on ancient Pythons
+    __version__ = "0.0.0+local"
+
 import warnings
 from functools import wraps
 from typing import Callable
