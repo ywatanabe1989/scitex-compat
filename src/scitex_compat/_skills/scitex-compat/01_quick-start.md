@@ -1,3 +1,9 @@
+---
+name: quick-start
+description: scitex-compat — Quick Start — see file body for details.
+tags: [scitex-compat, scitex-package]
+---
+
 <!-- 01_quick-start.md -->
 
 # scitex-compat — Quick Start

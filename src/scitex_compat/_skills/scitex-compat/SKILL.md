@@ -10,6 +10,7 @@ interfaces:
   skills: 1
   hook: 0
   http: 0
+tags: [scitex-compat, scitex-package]
 ---
 
 # scitex-compat
