@@ -43,6 +43,7 @@ scitex-compat = "scitex_compat"
 Homepage = "https://github.com/ywatanabe1989/scitex-compat"
 Repository = "https://github.com/ywatanabe1989/scitex-compat.git"
 Issues = "https://github.com/ywatanabe1989/scitex-compat/issues"
+Documentation = "https://scitex-compat.readthedocs.io"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/scitex_compat"]
