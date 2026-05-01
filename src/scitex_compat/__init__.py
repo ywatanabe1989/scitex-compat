@@ -14,7 +14,9 @@ Deprecation Timeline:
 from __future__ import annotations
 
 try:
-    from importlib.metadata import version as _v, PackageNotFoundError
+    from importlib.metadata import PackageNotFoundError
+    from importlib.metadata import version as _v
+
     try:
         __version__ = _v("scitex-compat")
     except PackageNotFoundError:
@@ -23,79 +25,10 @@ try:
 except ImportError:  # pragma: no cover — only on ancient Pythons
     __version__ = "0.0.0+local"
 
-import warnings
-from functools import wraps
-from typing import Callable
-
-
-def deprecated(new_name: str, removal_version: str = "2.0"):
-    """Decorator to mark functions as deprecated."""
-
-    def decorator(func: Callable) -> Callable:
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            warnings.warn(
-                f"{func.__name__} is deprecated. "
-                f"Use {new_name} instead. "
-                f"Will be removed in v{removal_version}.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
-
-
-# UI/Notification compatibility
-def notify(*args, **kwargs):
-    """Deprecated: Use scitex.notify.alert() instead.
-
-    In standalone mode, this only emits a deprecation warning.
-    The actual notification requires scitex.notify to be installed.
-    """
-    warnings.warn(
-        "scitex.compat.notify is deprecated. Use scitex.notify.alert instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    try:
-        from scitex.notify import alert
-        return alert(*args, **kwargs)
-    except ImportError:
-        warnings.warn(
-            "scitex.notify is not installed. Notification not sent.",
-            RuntimeWarning,
-            stacklevel=2,
-        )
-        return None
-
-
-async def notify_async(*args, **kwargs):
-    """Deprecated: Use scitex.notify.alert_async() instead.
-
-    In standalone mode, this only emits a deprecation warning.
-    The actual notification requires scitex.notify to be installed.
-    """
-    warnings.warn(
-        "scitex.compat.notify_async is deprecated. Use scitex.notify.alert_async instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    try:
-        from scitex.notify import alert_async
-        return await alert_async(*args, **kwargs)
-    except ImportError:
-        warnings.warn(
-            "scitex.notify is not installed. Notification not sent.",
-            RuntimeWarning,
-            stacklevel=2,
-        )
-        return None
-
+from ._compat import deprecated, notify, notify_async
 
 __all__ = [
+    "__version__",
     "deprecated",
     "notify",
     "notify_async",
