@@ -70,7 +70,9 @@ await notify_async("hello")
 
 ## Part of SciTeX
 
-`scitex-compat` is part of [**SciTeX**](https://scitex.ai).
+`scitex-compat` is part of [**SciTeX**](https://scitex.ai). Install via
+the umbrella with `pip install scitex[compat]` to use as
+`scitex.compat` (Python).
 
 >Four Freedoms for Research
 >
