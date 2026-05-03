@@ -1,7 +1,8 @@
 ---
-name: python-api
-description: scitex-compat — Python API — see file body for details.
-tags: [scitex-compat, scitex-package]
+description: |
+  [TOPIC] Python API
+  [DETAILS] Public symbols (deprecated, notify, notify_async) with signatures.
+tags: [scitex-compat-python-api]
 ---
 
 <!-- 02_python-api.md -->
