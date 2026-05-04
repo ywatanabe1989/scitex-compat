@@ -47,7 +47,10 @@ rule and empirical verification table.
 
 ## Sub-skills
 
-- [01_quick-start.md](01_quick-start.md) — install, import, usage snippets
-- [02_python-api.md](02_python-api.md) — public symbols and signatures
+- [01_installation.md](01_installation.md) — pip install + smoke verify
+- [02_quick-start.md](02_quick-start.md) — @deprecated + legacy notify forwarders
+- [03_python-api.md](03_python-api.md) — public symbols and signatures
+- [10_quick-start.md](10_quick-start.md) — legacy quick-start (kept for context)
+- [11_python-api.md](11_python-api.md) — legacy API notes (kept for context)
 
 No CLI, no MCP tools, no extra modules.
