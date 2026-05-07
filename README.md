@@ -39,6 +39,20 @@
 pip install scitex-compat
 ```
 
+## Architecture
+
+```
+scitex-compat/
+├── src/scitex_compat/
+│   ├── __init__.py              # deprecated, notify, notify_async
+│   ├── _deprecated.py           # @deprecated decorator (warns once,
+│   │                            #   forwards to replacement, removal_version)
+│   └── _shims/
+│       ├── _notify.py           # legacy notify() -> scitex.notify
+│       └── _notify_async.py     # legacy notify_async() -> scitex.notify
+└── tests/
+```
+
 ## Quick Start
 
 ```python
@@ -69,6 +83,21 @@ await notify_async("hello")
 ```
 
 </details>
+
+## Demo
+
+```mermaid
+sequenceDiagram
+    participant U as user code
+    participant O as old_func (deprecated)
+    participant N as new_func
+    participant W as warnings
+    U->>O: old_func(x=1)
+    O->>W: DeprecationWarning("use new_func; removal_version=2.0")
+    O->>N: new_func(x=1)
+    N-->>U: result
+    Note over U,N: One release later, old_func is removed.
+```
 
 ## Part of SciTeX
 
