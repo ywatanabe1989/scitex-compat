@@ -9,7 +9,7 @@
 <p align="center"><b>Backward compatibility shims and deprecation wrappers for the SciTeX ecosystem.</b></p>
 
 <p align="center">
-  <a href="https://scitex-compat.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-compat</code>
+  <a href="https://scitex-compat.readthedocs.io/">Full Documentation</a> · <code>uv pip install scitex-compat[all]</code>
 </p>
 
 <!-- scitex-badges:start -->
