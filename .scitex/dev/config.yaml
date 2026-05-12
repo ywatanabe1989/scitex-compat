@@ -1,0 +1,8 @@
+# scitex-dev audit config for this repo.
+# Whitelists for `scitex-dev ecosystem audit-project` so CI applies the
+# same allowlist as local dev. See:
+#   ~/proj/scitex-dev/src/scitex_dev/_skills/general/01_ecosystem_06_local-state-directories.md §`.scitex/dev/config.yaml`
+audit:
+  root-whitelist:
+    files:
+      - codecov.yml

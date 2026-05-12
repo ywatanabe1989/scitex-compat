@@ -25,3 +25,11 @@ env/
 venv/
 
 docs/sphinx/_build/
+
+# Local state — track only .scitex/dev/config.yaml so CI applies the
+# same audit whitelist as local. Everything else under .scitex/ is
+# runtime-only and must stay out of git.
+.scitex/*
+!.scitex/dev/
+.scitex/dev/*
+!.scitex/dev/config.yaml
