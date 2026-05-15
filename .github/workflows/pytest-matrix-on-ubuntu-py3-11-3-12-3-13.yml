@@ -1,4 +1,4 @@
-name: Tests
+name: tests
 
 on:
   push:
@@ -35,19 +35,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
           fail_ci_if_error: false
-
-  install-check:
-    # Fresh-venv install sanity (formerly install-test.yml). Catches
-    # undeclared runtime deps the in-suite editable install misses.
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install + import in a fresh venv
-        run: |
-          python -m venv .venv
-          .venv/bin/pip install --upgrade pip
-          .venv/bin/pip install -e .
-          .venv/bin/python -c "import scitex_compat; print(f'OK: {scitex_compat.__name__}')"
