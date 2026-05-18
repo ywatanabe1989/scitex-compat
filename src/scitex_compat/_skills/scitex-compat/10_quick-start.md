@@ -1,7 +1,8 @@
 ---
-name: quick-start
-description: scitex-compat — Quick Start — see file body for details.
-tags: [scitex-compat, scitex-package]
+description: |
+  [TOPIC] Quick Start
+  [DETAILS] Install, import, and usage snippets for @deprecated and notify forwarders.
+tags: [scitex-compat-quick-start]
 ---
 
 <!-- 01_quick-start.md -->

@@ -1,16 +1,17 @@
 ---
 name: scitex-compat
-description: Backward-compatibility shims for deprecated SciTeX APIs — holds legacy aliases so old user code keeps working while the ecosystem migrates. Public API (3 symbols) — `@deprecated(reason=..., version=..., replacement=...)` decorator (wraps a function/class to emit `DeprecationWarning` on call with a helpful message pointing at the new location) and legacy notification wrappers `notify(...)` + `notify_async(...)` that forward to the modern `scitex.notify` package. No CLI, no MCP tools, intentionally minimal — new features belong in the proper module, not here. Drop-in replacement for ad-hoc `warnings.warn("X is deprecated, use Y", DeprecationWarning, stacklevel=2)` boilerplate and hand-rolled `def notify(...): from .new_location import notify as _n; return _n(...)` forwarders. Use whenever the user asks to "mark a function as deprecated", "keep an old SciTeX alias working", "forward a legacy call to the new module", "add a DeprecationWarning with replacement info", or mentions `scitex.compat`, `@deprecated`, API migration shim.
-user-invocable: false
+description: |
+  [WHAT] Backward-compatibility shims — `@deprecated` decorator and legacy `notify`/`notify_async` forwarders so old SciTeX code keeps working while the ecosystem migrates.
+  [WHEN] Marking a function/class as deprecated with replacement info, keeping an old SciTeX alias alive, or forwarding a legacy call to the new module.
+  [HOW] `from scitex_compat import deprecated, notify, notify_async` — wrap with `@deprecated(reason=..., version=..., replacement=...)`.
+tags: [scitex-compat]
 primary_interface: python
 interfaces:
   python: 3
   cli: 0
   mcp: 0
   skills: 1
-  hook: 0
   http: 0
-tags: [scitex-compat, scitex-package]
 ---
 
 # scitex-compat
@@ -46,7 +47,10 @@ rule and empirical verification table.
 
 ## Sub-skills
 
-- [01_quick-start.md](01_quick-start.md) — install, import, usage snippets
-- [02_python-api.md](02_python-api.md) — public symbols and signatures
+- [01_installation.md](01_installation.md) — pip install + smoke verify
+- [02_quick-start.md](02_quick-start.md) — @deprecated + legacy notify forwarders
+- [03_python-api.md](03_python-api.md) — public symbols and signatures
+- [10_quick-start.md](10_quick-start.md) — legacy quick-start (kept for context)
+- [11_python-api.md](11_python-api.md) — legacy API notes (kept for context)
 
 No CLI, no MCP tools, no extra modules.
