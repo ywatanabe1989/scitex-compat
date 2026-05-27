@@ -46,11 +46,7 @@ pip install scitex-compat
 scitex-compat/
 ├── src/scitex_compat/
 │   ├── __init__.py              # deprecated, notify, notify_async
-│   ├── _deprecated.py           # @deprecated decorator (warns once,
-│   │                            #   forwards to replacement, removal_version)
-│   └── _shims/
-│       ├── _notify.py           # legacy notify() -> scitex.notify
-│       └── _notify_async.py     # legacy notify_async() -> scitex.notify
+│   └── _compat.py               # @deprecated decorator + notify/notify_async shims
 └── tests/
 ```
 

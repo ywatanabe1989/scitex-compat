@@ -12,11 +12,7 @@ tags: [scitex-compat-quick-start]
 ```python
 from scitex_compat import deprecated
 
-@deprecated(
-    reason="renamed for clarity",
-    version="2.0.0",
-    replacement="new_compute",
-)
+@deprecated("new_compute", removal_version="2.0")
 def compute(x):
     return new_compute(x)
 ```
