@@ -13,19 +13,18 @@ tags: [scitex-compat-python-api]
 from scitex_compat import deprecated, notify, notify_async
 ```
 
-## `@deprecated(reason, version, replacement=None)`
+## `@deprecated(new_name, removal_version="2.0")`
 
 Decorator that wraps a callable and emits a `DeprecationWarning` on each
 call.
 
-| Param         | Purpose                                              |
-|---------------|------------------------------------------------------|
-| `reason`      | Free-text explanation                                 |
-| `version`     | Version in which the function will be removed         |
-| `replacement` | Optional name of the recommended new API              |
+| Param             | Purpose                                              |
+|-------------------|------------------------------------------------------|
+| `new_name`        | Name of the replacement function or API               |
+| `removal_version` | Version in which the deprecated function will be removed |
 
 ```python
-@deprecated(reason="moved", version="2.0", replacement="new.api")
+@deprecated("new.api", removal_version="2.0")
 def old_api(...): ...
 ```
 
