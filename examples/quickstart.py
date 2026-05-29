@@ -5,7 +5,7 @@ import warnings
 import scitex_compat
 
 
-@scitex_compat.deprecated(new_name="new_api", removal_version="0.2.0")
+@scitex_compat.deprecated(reason="use new_api() instead; will be removed in 0.2.0")
 def old_api(x):
     return x * 2
 
