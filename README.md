@@ -27,12 +27,15 @@
 
 ---
 
+> **Interfaces:** Python ⭐⭐⭐ (primary) · CLI — · MCP — · Skills ⭐ · Hook — · HTTP —
+
 ## Problem and Solution
 
 | # | Problem | Solution |
 |---|---------|----------|
-| 1 | **Renaming a public API silently breaks users** — there's no stdlib way to say "this still works but is deprecated" | **`@deprecated` decorator** — emits `DeprecationWarning` with replacement hint, keeps the old name working one release |
+| 1 | **Renaming a public API silently breaks users** — there's no stdlib way to say "this still works but is deprecated" | **`@deprecated` decorator** — emits `DeprecationWarning` with a `reason=` hint; optional `forward_to=` redirects the call to the replacement so old code-paths keep working transparently |
 | 2 | **Migrating legacy `notify()` calls** — old scripts reference functions whose home moved | **Compat shims** — `notify`, `notify_async` still callable, forward to the new home, warn once |
+| 3 | **Layer-0 leaves can't pull `numpy` just to mark an API deprecated** | scitex-compat has **zero runtime deps** (pure stdlib). It is the canonical home for `@deprecated` in the SciTeX ecosystem — see [ADR-0001](docs/adr/0001-canonical-deprecated-decorator.md) |
 
 ## Installation
 
@@ -42,21 +45,37 @@ pip install scitex-compat
 
 ## Architecture
 
+`scitex-compat` is the **SSOT** (single source of truth) for the
+`@deprecated` decorator across the SciTeX ecosystem. Other packages
+(notably `scitex-decorators`) re-export from here, so there is exactly
+one implementation to fix bugs in or extend.
+
 ```
 scitex-compat/
 ├── src/scitex_compat/
 │   ├── __init__.py              # deprecated, notify, notify_async
-│   └── _compat.py               # @deprecated decorator + notify/notify_async shims
+│   └── _compat.py               # @deprecated impl + notify/notify_async shims
+├── docs/adr/
+│   └── 0001-canonical-deprecated-decorator.md   # SSOT decision
 └── tests/
 ```
+
+See also: [`scitex-decorators` ADR-0001](https://github.com/ywatanabe1989/scitex-decorators/blob/develop/docs/adr/0001-thin-reexport-of-deprecated.md)
+documenting the re-export contract from the other side.
 
 ## Quick Start
 
 ```python
 from scitex_compat import deprecated
 
-@deprecated("new_function_name", removal_version="3.0")
+# 1. Warn-only form
+@deprecated(reason="use new_function instead; removed in 3.0")
 def old_function():
+    pass
+
+# 2. Forwarding form — redirects calls to the new location
+@deprecated(reason="moved to scitex.session.start", forward_to="..session.start")
+def start():
     pass
 ```
 
@@ -70,8 +89,16 @@ def old_function():
 ```python
 from scitex_compat import deprecated, notify, notify_async
 
-@deprecated("new_func", removal_version="2.0")
+# Warn-only: emits DeprecationWarning, still calls the wrapped body.
+@deprecated(reason="use new_func instead")
 def old_func(*args, **kwargs):
+    ...
+
+# Forwarding: warning + transparent redirect via importlib.
+# forward_to may be absolute ("pkg.mod.func") or relative ("..mod.func")
+# resolved against the decorated function's __module__.
+@deprecated(reason="moved", forward_to="scitex_other.mod.replacement")
+def renamed_func(*args, **kwargs):
     ...
 
 # Compat shims (forward to scitex.notify if installed)
@@ -90,10 +117,10 @@ sequenceDiagram
     participant N as new_func
     participant W as warnings
     U->>O: old_func(x=1)
-    O->>W: DeprecationWarning("use new_func; removal_version=2.0")
-    O->>N: new_func(x=1)
+    O->>W: DeprecationWarning("old_func is deprecated: <reason>")
+    O->>N: importlib resolves forward_to → new_func(x=1)
     N-->>U: result
-    Note over U,N: One release later, old_func is removed.
+    Note over U,N: One release later, old_func can be removed.
 ```
 
 ## Part of SciTeX
