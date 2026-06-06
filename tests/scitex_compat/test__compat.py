@@ -107,33 +107,37 @@ class TestDeprecatedDecorator:
         # Assert
         assert "new_thing" in str(caught[0].message)
 
-    def test_warning_includes_explicit_removal_version(self):
-        # Arrange
-        @deprecated("replacement", removal_version="3.5")
-        def doomed():
-            return None
+    def _make_forward_to_decorated(self):
+        import sys
 
+        sys.modules.setdefault("_compat_test_target", sys.modules[__name__])
+        globals()["replacement_fn"] = lambda: "from_replacement"
+
+        @deprecated(reason="moved", forward_to="_compat_test_target.replacement_fn")
+        def old_fn():
+            return "from_old"
+
+        return old_fn
+
+    def test_forward_to_returns_replacement_value(self):
+        # Arrange
+        old_fn = self._make_forward_to_decorated()
+        # Act
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            result = old_fn()
+        # Assert
+        assert result == "from_replacement"
+
+    def test_forward_to_emits_deprecation_warning(self):
+        # Arrange
+        old_fn = self._make_forward_to_decorated()
         # Act
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter("always")
-            doomed()
-
+            old_fn()
         # Assert
-        assert any("3.5" in str(w.message) for w in caught)
-
-    def test_default_removal_version_is_2_0(self):
-        # Arrange
-        @deprecated("replacement")
-        def doomed():
-            return None
-
-        # Act
-        with warnings.catch_warnings(record=True) as caught:
-            warnings.simplefilter("always")
-            doomed()
-
-        # Assert
-        assert any("2.0" in str(w.message) for w in caught)
+        assert any(issubclass(w.category, DeprecationWarning) for w in caught)
 
     def test_decorator_preserves_return_value(self):
         # Arrange
