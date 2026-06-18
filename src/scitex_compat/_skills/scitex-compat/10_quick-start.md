@@ -26,7 +26,7 @@ import scitex_compat
 ```python
 from scitex_compat import deprecated
 
-@deprecated(new_name="my_module.new_func", removal_version="2.0")
+@deprecated(reason="Use my_module.new_func instead")
 def old_func(x):
     return x + 1
 

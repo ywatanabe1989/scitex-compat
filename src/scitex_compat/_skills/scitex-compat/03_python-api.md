@@ -13,23 +13,26 @@ tags: [scitex-compat-python-api]
 from scitex_compat import deprecated, notify, notify_async
 ```
 
-## `@deprecated(new_name, removal_version="2.0")`
+## `@deprecated(reason=None, forward_to=None)`
 
 Decorator that wraps a callable and emits a `DeprecationWarning` on each
-call.
+call of the form `"<func_name> is deprecated: <reason>"`.
 
-| Param             | Purpose                                              |
-|-------------------|------------------------------------------------------|
-| `new_name`        | Name of the replacement function or API               |
-| `removal_version` | Version in which the deprecated function will be removed |
+| Param        | Purpose                                                                 |
+|--------------|-------------------------------------------------------------------------|
+| `reason`     | Human-readable explanation of why the function was deprecated           |
+| `forward_to` | Optional dotted path to the replacement; when set, calls are forwarded to it via `importlib` and the wrapper docstring is auto-generated |
 
 ```python
-@deprecated("new.api", removal_version="2.0")
+@deprecated("Use new.api instead")
 def old_api(...): ...
+
+@deprecated(reason="Use scitex.session.start instead", forward_to="..session.start")
+def start(...): ...
 ```
 
-The wrapped function still runs normally — this is opt-in deprecation,
-not a hard removal.
+When `forward_to` is omitted the wrapped function still runs normally —
+this is opt-in deprecation, not a hard removal.
 
 ## `notify(*args, **kwargs)`
 
