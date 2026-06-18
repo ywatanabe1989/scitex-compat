@@ -12,13 +12,14 @@ tags: [scitex-compat-quick-start]
 ```python
 from scitex_compat import deprecated
 
-@deprecated("new_compute", removal_version="2.0")
+@deprecated("Use new_compute instead")
 def compute(x):
     return new_compute(x)
 ```
 
-A `DeprecationWarning` is emitted on each call, including the version
-removed-in and the suggested replacement.
+A `DeprecationWarning` of the form `"compute is deprecated: <reason>"` is
+emitted on each call. Pass `forward_to="..module.new_compute"` to forward
+calls to the replacement automatically.
 
 ## Legacy notify forwarders
 

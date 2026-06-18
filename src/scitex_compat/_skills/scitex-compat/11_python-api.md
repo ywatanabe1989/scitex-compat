@@ -20,7 +20,7 @@ All public symbols are in `scitex_compat.__all__`:
 ## Signatures
 
 ```python
-deprecated(new_name: str, removal_version: str = "2.0") -> Callable[[Callable], Callable]
+deprecated(reason: str | None = None, forward_to: str | None = None) -> Callable[[Callable], Callable]
 notify(*args, **kwargs) -> Any
 async notify_async(*args, **kwargs) -> Any
 ```
