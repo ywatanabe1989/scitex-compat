@@ -36,3 +36,4 @@ docs/sphinx/_build/
 
 # Sphinx local build output (the in-wheel src/<pkg>/_sphinx_html bundle IS tracked)
 docs/sphinx/_build/
+.worktrees/
